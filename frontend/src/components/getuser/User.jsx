@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const User = () => {
+  const { id } = useParams();
   const [users, setUsers] = useState([]);
+  // const [userStatus, setUserStatus] = useState(true);
+
   useEffect(() => {
     const fethData = async () => {
       const response = await axios.get("http://localhost:8000/api/getall");
@@ -13,7 +16,7 @@ const User = () => {
     fethData();
   }, []);
 
-  // console.log(users);
+  // console.log(userStatus);
   const deleteUser = async (userId) => {
     await axios
       .delete(`http://localhost:8000/api/delete/${userId}`)
@@ -22,6 +25,7 @@ const User = () => {
         toast.success(res.data.msg, { position: "top-right" });
       });
   };
+
   return (
     <div>
       <div
@@ -79,6 +83,9 @@ const User = () => {
                 <th scope="col" className="px-6 py-3">
                   Position
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Status
+                </th>
                 {/* <th scope="col" className="px-6 py-3">
                   Status
                 </th> */}
@@ -120,13 +127,24 @@ const User = () => {
                     </div>
                   </th>
                   <td className="px-6 py-4">{user.position}</td>
-                  {/* <td className="px-6 py-4">
-                  <div className="flex items-center">
-                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2" />{" "}
-                    Online
-                  </div>
-                </td> */}
-                  <td className="justyfy-evenly ">
+                  <td className="px-6 py-4">
+                    {user.status === "true" ? (
+                      <button
+                        type="button"
+                        className="text-white bg-green-700 focus:ring-4 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2  focus:outline-none "
+                      >
+                        Block
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-white bg-green-700 focus:ring-4  font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2  focus:outline-none "
+                      >
+                        Unblock
+                      </button>
+                    )}
+                  </td>
+                  <td className="justyfy-between px-6 py-4">
                     <button
                       type="button"
                       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
@@ -144,12 +162,7 @@ const User = () => {
                     >
                       Block
                     </a> */}
-                    <button
-                      type="button"
-                      className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
-                    >
-                      Block
-                    </button>
+
                     <button
                       onClick={() => deleteUser(user._id)}
                       type="button"

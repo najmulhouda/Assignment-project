@@ -9,10 +9,11 @@ const Add = () => {
     email: "",
     position: "",
     number: "",
-    status: "",
+    status: "true",
   };
   const [user, setUser] = useState(users);
 
+  // console.log(user);
   const navigate = useNavigate();
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -97,7 +98,7 @@ const Add = () => {
           <input
             type="number"
             id="phone"
-            name="phone"
+            name="number"
             onChange={inputHandler}
             placeholder="Phone number"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
