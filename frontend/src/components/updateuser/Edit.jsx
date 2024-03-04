@@ -25,7 +25,7 @@ const Edit = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/getone/${id}`)
+      .get(`https://backendserver-rsdt.onrender.com/api/getone/${id}`)
       .then((response) => {
         setUser(response.data);
         // console.log(response.data);
@@ -38,7 +38,7 @@ const Edit = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:8000/api/update/${id}`, user)
+      .put(`https://backendserver-rsdt.onrender.com/api/update/${id}`, user)
       .then((response) => {
         toast.success(response.data.msg, { position: "top-right" });
         navigate("/");

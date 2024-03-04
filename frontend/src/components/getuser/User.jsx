@@ -10,7 +10,9 @@ const User = () => {
 
   useEffect(() => {
     const fethData = async () => {
-      const response = await axios.get("http://localhost:8000/api/getall");
+      const response = await axios.get(
+        "https://backendserver-rsdt.onrender.com/api/getall"
+      );
       setUsers(response.data);
     };
     fethData();
@@ -19,7 +21,7 @@ const User = () => {
   // console.log(userStatus);
   const deleteUser = async (userId) => {
     await axios
-      .delete(`http://localhost:8000/api/delete/${userId}`)
+      .delete(`https://backendserver-rsdt.onrender.com/api/delete/${userId}`)
       .then((res) => {
         setUsers((prev) => prev.filter((user) => user._id !== userId));
         toast.success(res.data.msg, { position: "top-right" });
